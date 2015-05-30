@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Family circle</string>
+    <string name="action_settings">Settings</string>
+    <string name="accion_cerrar_sesion">Cerrar Sesión</string>
+    <string name="title_activity_crear_recado">Crear Recado</string>
+    <string name="title_activity_agregar_familiar">Agregar Familiar</string>
+    <string name="title_activity_mis_recados">Mis Recados</string>
+    <string name="title_activity_registro_usuario">Registro Usuario</string>
+    <string name="etTitulo">Título</string>
+    <string name="etDescripcion">Descripción</string>
+    <string name="btnGuardar">Guardar</string>
+    <string name="btnCancelar">Cancelar</string>
+    <string name="btnAgregar">Agregar</string>
+    <string name="etUsuario">Usuario</string>
+    <string name="etUsuario_detalle">Usuario:</string>
+    <string name="etNombre">Nombre</string>
+    <string name="etApellidos">Apellidos</string>
+    <string name="etClave">Contraseña</string>
+    <string name="etClaveRepetida">Repita Contraseña</string>
+    <string name="btnRegistrar">Registrar</string>
+    <string name="title_activity_login_usuario">LoginUsuario</string>
+    <string name="btnAceptar">Aceptar</string>
+    <string name="btnLogin">Login</string>
+    <string name="btnRegistro">Registro</string>
+    <string name="title_activity_google_maps">GoogleMaps</string>
+
+</resources>
