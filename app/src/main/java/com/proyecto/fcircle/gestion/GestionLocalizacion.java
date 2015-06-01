@@ -75,7 +75,7 @@ public class GestionLocalizacion {
         /**
          * *************** Envia los datos al servidor *********************************
          */
-        public String subirDatos(String data) {
+        /*public String subirDatos(String data) {
             URL url;
             InputStream is = null;
             BufferedReader br;
@@ -91,7 +91,7 @@ public class GestionLocalizacion {
                 System.out.println(e);
             }
             return "error de sincronizacion";
-        }
+        }*/
 
         public String post(String urlPeticion) {
             String resultado="";

@@ -35,6 +35,7 @@ public class Principal extends Activity {
 
     ObjectContainer bd;
     private ArrayList<Usuario> alUsuario = new ArrayList<Usuario>();
+    public static String URL = "http://192.168.1.105:8080/FcircleServidor/ControlAndroid?";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +43,7 @@ public class Principal extends Activity {
         setContentView(R.layout.actividad_principal);
         bd = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), getExternalFilesDir(null) + "/bd.db4o");
         leerBD();
-        GestionLocalizacion glocali = new GestionLocalizacion();
-        glocali.subir(Principal.this);
-}
+    }
 
     @Override
     protected void onRestart() {

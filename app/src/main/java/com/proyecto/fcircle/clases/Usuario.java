@@ -117,5 +117,15 @@ public class Usuario implements Serializable, Parcelable{
             return new Usuario[0];
         }
     };
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "nombre='" + nombre + '\'' +
+                ", apellidos='" + apellidos + '\'' +
+                ", usuario='" + usuario + '\'' +
+                ", clave='" + clave + '\'' +
+                '}';
+    }
 }
 

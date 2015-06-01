@@ -27,6 +27,7 @@ public class GestionUsuario {
 
     String URL="http://192.168.1.13:8080/FcircleServidor/ControlAndroid?";
 
+
     public void subir(Context c){
         Subir subir = new Subir(c);
         subir.execute();
@@ -75,7 +76,7 @@ public class GestionUsuario {
 
         /**
          * *************** Envia los datos al servidor *********************************
-         */
+         *//*
         public String subirDatos(String data) {
             URL url;
             InputStream is = null;
@@ -92,7 +93,7 @@ public class GestionUsuario {
                 System.out.println(e);
             }
             return "error de sincronizacion";
-        }
+        }*/
 
         public String post(String urlPeticion) {
             String resultado="";
@@ -107,8 +108,8 @@ public class GestionUsuario {
                 multipartEntity.addPart("apellidos", new StringBody("mariquita"));
                 multipartEntity.addPart("nombreUsuario", new StringBody("auler"));
                 multipartEntity.addPart("clave", new StringBody("123"));
-                multipartEntity.addPart("foto", new StringBody("=)"));
-                multipartEntity.addPart("localizacion", new StringBody("casa"));
+                multipartEntity.addPart("foto", new StringBody(""));
+                multipartEntity.addPart("localizacion", new StringBody(""));
 
                 conexion.setRequestProperty("Content-Type", multipartEntity.getContentType().getValue());
                 OutputStream out = conexion.getOutputStream();

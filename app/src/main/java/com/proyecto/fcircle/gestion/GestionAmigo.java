@@ -87,6 +87,7 @@ public class GestionAmigo {
         /**
          * *************** Envia los datos al servidor *********************************
          */
+        /*
         public String subirDatos(String data) {
             URL url;
             InputStream is = null;
@@ -104,7 +105,7 @@ public class GestionAmigo {
             }
             return "error de sincronizacion";
         }
-
+*/
         public String post(String urlPeticion) {
             String resultado="";
             try {

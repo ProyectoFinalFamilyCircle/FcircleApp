@@ -15,6 +15,7 @@ import com.proyecto.fcircle.clases.Usuario;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class LoginUsuario extends Activity {
@@ -27,9 +28,10 @@ public class LoginUsuario extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.actividad_login_usuario);
         bd = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), getExternalFilesDir(null) + "/bd.db4o");
+        leerBD();
 
-        Bundle b = getIntent().getExtras();
-        alUsuario = b.getParcelableArrayList("usuarios");
+        /*Bundle b = getIntent().getExtras();
+        alUsuario = b.getParcelableArrayList("usuarios");*/
 
         etUsuario = (EditText) this.findViewById(R.id.etUsuario);
         etClave = (EditText) this.findViewById(R.id.etClave);
@@ -39,6 +41,14 @@ public class LoginUsuario extends Activity {
     protected void onPause() {
         super.onPause();
         bd.close();
+    }
+
+    private void leerBD(){
+        Usuario usuario = new Usuario(null, null, null, null);
+        List<Usuario> usuarios = bd.queryByExample(usuario);
+        for(Usuario u: usuarios){
+            alUsuario.add(new Usuario(u.getNombre(), u.getApellidos(), u.getUsuario(), u.getClave()));
+        }
     }
 
     public void loginUsuario(View v){
@@ -57,7 +67,7 @@ public class LoginUsuario extends Activity {
             b.putParcelableArrayList("usuarios", alUsuario);
             i.putExtras(b);
             startActivity(i);*/
-            Intent i = new Intent(getApplicationContext(), GoogleMaps.class);
+            Intent i = new Intent(getApplicationContext(), AgregarFamiliar.class);
             Bundle b=new Bundle();
             b.putParcelableArrayList("usuarios", alUsuario);
             i.putExtras(b);

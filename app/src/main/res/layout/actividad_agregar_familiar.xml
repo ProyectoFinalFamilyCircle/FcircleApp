@@ -31,7 +31,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/btnAgregar"
-                android:id="@+id/btAgregar" />
+                android:id="@+id/btAgregar"
+                android:onClick="agregar"/>
 
             <Button
                 android:layout_width="wrap_content"
