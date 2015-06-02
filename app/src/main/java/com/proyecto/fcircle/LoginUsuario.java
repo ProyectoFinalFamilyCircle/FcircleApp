@@ -67,8 +67,9 @@ public class LoginUsuario extends Activity {
             b.putParcelableArrayList("usuarios", alUsuario);
             i.putExtras(b);
             startActivity(i);*/
-            Intent i = new Intent(getApplicationContext(), AgregarFamiliar.class);
-            Bundle b=new Bundle();
+            Intent i = new Intent(getApplicationContext(), MenuInicio.class);
+            Bundle b = new Bundle();
+            b.putString("usuarioLogueado", usuario);
             b.putParcelableArrayList("usuarios", alUsuario);
             i.putExtras(b);
             i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

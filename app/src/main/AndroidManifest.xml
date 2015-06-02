@@ -64,6 +64,11 @@
             android:enabled="true"
             android:exported="true" >
         </service>
+
+        <activity
+            android:name=".MenuInicio"
+            android:label="@string/title_activity_menu_inicio" >
+        </activity>
     </application>
 
 </manifest>

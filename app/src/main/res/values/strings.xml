@@ -24,6 +24,9 @@
     <string name="btnAceptar">Aceptar</string>
     <string name="btnLogin">Login</string>
     <string name="btnRegistro">Registro</string>
+    <string name="btnAgregarRecado">Agregar Recado</string>
     <string name="title_activity_google_maps">GoogleMaps</string>
+    <string name="title_activity_menu_inicio">MenuInicio</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>

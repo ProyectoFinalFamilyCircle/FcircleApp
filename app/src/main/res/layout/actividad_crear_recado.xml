@@ -43,13 +43,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/btnGuardar"
-                android:id="@+id/btGuardar" />
+                android:id="@+id/btGuardar"
+                android:onClick="guardarRecado"/>
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/btnCancelar"
-                android:id="@+id/btCancelar" />
+                android:id="@+id/btCancelar"
+                android:onClick="cancelarRecado"/>
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

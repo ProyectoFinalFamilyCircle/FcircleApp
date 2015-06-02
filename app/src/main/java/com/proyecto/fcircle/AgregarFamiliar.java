@@ -31,7 +31,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
+import java.util.ArrayList;
 
 
 public class AgregarFamiliar extends Activity {
@@ -53,7 +53,6 @@ public class AgregarFamiliar extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.agregar_familiar, menu);
         return true;
     }
@@ -76,9 +75,11 @@ public class AgregarFamiliar extends Activity {
 
     public void agregar(View v){
         usuarioAgregado = etUsuario.getText().toString();
-
         Actualizar actualiza = new Actualizar();
         actualiza.execute();
+    }
+    public void cancelar(View v){
+        this.finish();
     }
 
     private void tostada(String s) {
@@ -89,22 +90,11 @@ public class AgregarFamiliar extends Activity {
 
     class Subir extends AsyncTask<String,Integer,String> {
 
-        ProgressDialog pDialog;
+
         Amigo amigo = new Amigo();
 
         public Subir(Amigo ami){
             amigo = ami;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-            pDialog = new ProgressDialog(AgregarFamiliar.this);
-            pDialog.setMessage("Sincronizando datos");
-            pDialog.setCancelable(false);
-            pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            pDialog.show();
         }
 
         @Override
@@ -122,7 +112,7 @@ public class AgregarFamiliar extends Activity {
         protected void onPostExecute(String strings) {
             super.onPostExecute(strings);
             tostada(strings);
-            pDialog.dismiss();
+
         }
 
         public String post(String urlPeticion) {
@@ -142,7 +132,7 @@ public class AgregarFamiliar extends Activity {
                 try {
                     multipartEntity.writeTo(out);
                 } catch (Exception e){
-                    Log.v("primero", e.toString());
+                    Log.v("1.Exception", e.toString());
                     return e.toString();
                 }finally {
                     out.close();
@@ -155,63 +145,123 @@ public class AgregarFamiliar extends Activity {
                 }
                 in.close();
             } catch (MalformedURLException ex) {
-                Log.v("segundo",ex.toString());
+                Log.v("2.MalformedURLException",ex.toString());
                 return null;
             } catch (IOException ex) {
-                Log.v("tercero",ex.toString());
+                Log.v("3.IOException",ex.toString());
                 return null;
             }
             return resultado;
         }
     }
 
-    class Actualizar extends AsyncTask<String,Integer,String> {
+    class Actualizar extends AsyncTask<String,Integer,ArrayList<String>> {
+
+        ProgressDialog pDialog;
 
         @Override
-        protected String doInBackground(String... params) {
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            pDialog = new ProgressDialog(AgregarFamiliar.this);
+            pDialog.setMessage("Sincronizando datos");
+            pDialog.setCancelable(false);
+            pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            pDialog.show();
+        }
+
+        @Override
+        protected ArrayList<String> doInBackground(String... params) {
+            ArrayList<String> lista = new ArrayList();
             String url = "target=amigo&" + "op=select&" + "action=view";
             String r = leerpagina(Principal.URL + url);
-            return r;
+            lista.add(r);
+            String url2 = "target=persona&" + "op=select&" + "action=view";
+            String r2 = leerpagina(Principal.URL + url2);
+            lista.add(r2);
+            return lista;
         }
 
         @Override
-        protected void onPostExecute(String strings) {
-            super.onPostExecute(strings);
-            Log.v("AQUI", strings);
-            leerJSON(strings);
+        protected void onPostExecute(ArrayList<String> lista) {
+            super.onPostExecute(lista);
+            if(agregadoExiste(lista.get(1).toString())){
+                agregarAmigo(lista.get(0).toString());
+            }else{
+                tostada(usuarioAgregado + " no existe");
+            }
+            pDialog.dismiss();
         }
 
-        public void leerJSON(String s){
+        public void agregarAmigo(String s){
+
+            boolean agregar = true;
+            JSONTokener token = new JSONTokener(s);
+            try {
+                JSONArray array = new JSONArray(token);
+                for (int i = 0; i < array.length(); i++) {
+                    JSONObject fila = array.getJSONObject(i);
+                    String usuarioAcepta = fila.getString("usuarioAcepta");
+                    String usuarioInvita = fila.getString("usuarioInvita");
+                    Amigo amigoJson = new Amigo(usuarioInvita, usuarioAcepta);
+
+                    /*****************************************************/
+
+                    if (sonIguales(amigoJson)) {
+                        agregar = false;
+                        break;
+                    }
+                }
+                if(agregar){
+                    agregarAmigo();
+                }
+            } catch (JSONException e) {
+                Log.v("JSONException", "leerJSON");
+            }
+
+        }
+
+        public void agregarAmigo(){
+            //los hacemos amigos
+            Amigo amigo = new Amigo(usuarioLogueado, usuarioAgregado);
+            Subir subir = new Subir(amigo);
+            subir.execute();
+            tostada("Amigo agregado");
+        }
+
+        public boolean sonIguales(Amigo amigoJson){
+            if(usuarioLogueado.equals(amigoJson.getUsuarioAcepta()) || usuarioLogueado.equals(amigoJson.getUsuarioInvita())){
+                if(usuarioAgregado.equals(amigoJson.getUsuarioAcepta()) || usuarioAgregado.equals(amigoJson.getUsuarioInvita())) {
+                    //coinciden, ya son amigos
+                    tostada( usuarioAgregado + " ya se encuentra en tu lista de amigos.");
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public boolean agregadoExiste(String s){
             JSONTokener token = new JSONTokener(s);
             try {
                 JSONArray array = new JSONArray(token);
                 for(int i=0;i<array.length(); i++){
                     JSONObject fila = array.getJSONObject(i);
-                    String usuarioAcepta = fila.getString("usuarioAcepta");
-                    String usuarioInvita = fila.getString("usuarioInvita");
-                    //Que coincidan con logueado y agregado
 
+                    Usuario usuario = new Usuario(fila.getString("nombre"),
+                            fila.getString("apellidos"),
+                            fila.getString("nombreUsuario"),
+                            fila.getString("clave"));
 
-                    /*****************************************************/
-
-
-                    if(usuarioLogueado.equals(usuarioAcepta) || usuarioLogueado.equals(usuarioInvita)){
-                        if(usuarioAgregado.equals(usuarioAcepta) || usuarioAgregado.equals(usuarioInvita)) {
-                            //coinciden
-                            //tostada diciendo que ya se conocen
-                            tostada( usuarioAgregado + " ya se encuentra en tu lista de amigos.");
-                        }else{
-                            //no coinciden
-                            Amigo amigo = new Amigo(usuarioLogueado, usuarioAgregado);
-                            Subir subir = new Subir(amigo);
-                            subir.execute();
-                            tostada("Amigo agregado");
-                        }
+                    if(usuario.getUsuario().equals(usuarioAgregado)){
+                        //romper el bucle
+                        //usuario agregado existe
+                        return true;
                     }
                 }
             } catch (JSONException e) {
-                Log.v("ser","noseer");
+                Log.v("JSONException", "comprobarAgregadoExiste");
             }
+            return false;
         }
 
         public String leerpagina(String data){
@@ -235,5 +285,4 @@ public class AgregarFamiliar extends Activity {
             return "no se ha podido leer";
         }
     }
-
 }

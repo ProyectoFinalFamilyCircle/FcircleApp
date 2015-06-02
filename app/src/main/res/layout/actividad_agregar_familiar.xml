@@ -38,7 +38,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/btnCancelar"
-                android:id="@+id/btCancelar" />
+                android:id="@+id/btCancelar"
+                android:onClick="cancelar"/>
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

@@ -52,6 +52,7 @@ public class RegistroUsuario extends Activity {
         //Abrimos la base de datos db4o
         bd = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), getExternalFilesDir(null) + "/bd.db4o");
         //Leemos los datos del servidor
+
         Actualizar actualiza = new Actualizar();
         actualiza.execute();
         //Obtenemos los usuarios
