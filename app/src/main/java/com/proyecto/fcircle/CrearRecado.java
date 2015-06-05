@@ -2,7 +2,9 @@ package com.proyecto.fcircle;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -48,9 +50,6 @@ public class CrearRecado extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.actividad_crear_recado);
         initComponent();
-
-        Bundle b = getIntent().getExtras();
-        usuarioLogueado = b.getString("usuarioLogueado");
         for (int i = 0; i < alAmigo.size() ; i++) {
             amigos.add(alAmigo.get(i).getUsuarioAcepta());
         }
@@ -71,6 +70,9 @@ public class CrearRecado extends Activity {
         etDescripcion = (EditText) this.findViewById(R.id.etDescripcion);
         spUsuarios = (Spinner) this.findViewById(R.id.spUsuarios);
         bd = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), getExternalFilesDir(null) + "/bd.db4o");
+        /*Bundle b = getIntent().getExtras();
+        usuarioLogueado = b.getString("usuarioLogueado");*/
+        usuarioLogueado = getUsuarioSharedPreferences();
         leerBD();
     }
 
@@ -119,18 +121,25 @@ public class CrearRecado extends Activity {
     }
 
     private void leerBD(){
-        Amigo amigo = new Amigo(usuarioLogueado, null);
-        List<Amigo> listaAmigos = bd.queryByExample(amigo);
+        Amigo amigoConsulta = new Amigo(usuarioLogueado, null);
+        List<Amigo> listaAmigos = bd.queryByExample(amigoConsulta);
         for(Amigo a: listaAmigos){
+            Log.v("DATOS DEL SPINNER: ", a.getUsuarioInvita() + " && " + a.getUsuarioAcepta());
             alAmigo.add(new Amigo(a.getUsuarioInvita(), a.getUsuarioAcepta()));
         }
+    }
+
+    public String getUsuarioSharedPreferences() {
+        SharedPreferences sp = getSharedPreferences("usuario", Context.MODE_PRIVATE);
+        return sp.getString("usuario", "");
     }
 
     private void tostada(String s) {
         Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
     }
 
-    /****************************** CONEXION CON LA BD ****************************************/
+    /****************************** CONEXION CON EL SERVIDOR ****************************************/
+
     class SubirRecado extends AsyncTask<String,Integer,String> {
 
         ProgressDialog pDialog;

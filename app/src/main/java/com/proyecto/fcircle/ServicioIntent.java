@@ -8,7 +8,6 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.List;
@@ -17,8 +16,8 @@ import java.util.Locale;
 
 public class ServicioIntent extends IntentService {
 
-    private static final String ACCION_GECODE = "com.example.area51.localizacion.action.GEOCODE";
-    private static final String EXTRA_PARAM1_LOC = "com.example.area51.localizacion.extra.LOCATION";
+    private static final String ACCION_GECODE = "com.proyecto.fcircle.action.GEOCODE";
+    private static final String EXTRA_PARAM1_LOC = "com.proyecto.fcircle.extra.LOCATION";
 
 
     public static void startAccionGeocode(Context context, Location location) {

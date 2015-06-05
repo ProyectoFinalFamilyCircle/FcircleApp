@@ -24,25 +24,44 @@
             android:gravity="center_horizontal">
 
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/btnAgregarRecado"
-                android:id="@+id/btAgregarRecado"
+                android:layout_width="150dp"
+                android:layout_height="70dp"
+                android:text="@string/btnLocalizacion"
+                android:id="@+id/btnLocalizacion"
                 android:layout_gravity="center_vertical"
-                android:onClick="agregarRecado" />
+                android:onClick="misLocalizaciones" />
 
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="New Button"
-                android:id="@+id/button2"
-                android:layout_gravity="center_vertical" />
+                android:layout_width="150dp"
+                android:layout_height="70dp"
+                android:text="@string/btnAgregarAmigo"
+                android:id="@+id/btnAgregarAmigo"
+                android:layout_gravity="center_vertical"
+                android:onClick="agregarFamiliar" />
         </LinearLayout>
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_weight="1"></LinearLayout>
+            android:layout_weight="1"
+            android:gravity="center_horizontal">
+
+            <Button
+                android:layout_width="150dp"
+                android:layout_height="70dp"
+                android:text="@string/btnAgregarRecado"
+                android:id="@+id/btnAgregarRecado"
+                android:layout_gravity="center_vertical"
+                android:onClick="agregarRecado" />
+
+            <Button
+                android:layout_width="150dp"
+                android:layout_height="70dp"
+                android:text="@string/btnMisRecados"
+                android:id="@+id/btnMisRecados"
+                android:layout_gravity="center_vertical"
+                android:onClick="misRecados" />
+        </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

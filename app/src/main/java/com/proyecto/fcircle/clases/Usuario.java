@@ -12,9 +12,7 @@ public class Usuario implements Serializable, Parcelable{
     private String usuario;
     private String clave;
 
-    public Usuario(){
-
-    }
+    public Usuario(){}
 
     public Usuario(String nombre, String apellidos, String usuario, String clave) {
         this.nombre = nombre;
@@ -70,6 +68,20 @@ public class Usuario implements Serializable, Parcelable{
             return false;
         return !(clave != null ? !clave.equals(usuario1.clave) : usuario1.clave != null);
 
+    }
+
+    public boolean compruebaUsuario(Usuario usu){
+        if(this.usuario.equals(usu.getUsuario())){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean compruebaClave(Usuario usu){
+        if(this.clave.equals(usu.getClave())){
+            return true;
+        }
+        return false;
     }
 
     @Override

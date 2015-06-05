@@ -25,8 +25,16 @@
     <string name="btnLogin">Login</string>
     <string name="btnRegistro">Registro</string>
     <string name="btnAgregarRecado">Agregar Recado</string>
+    <string name="btnMisRecados">Mis Recados</string>
+    <string name="btnLocalizacion">Localizacion</string>
+    <string name="btnAgregarAmigo">Agregar Amigo</string>
+    <string name="tvDescripcion">Descripción</string>
     <string name="title_activity_google_maps">GoogleMaps</string>
     <string name="title_activity_menu_inicio">MenuInicio</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_detalle_recado">DetalleRecado</string>
+    <string name="anadir_familiar">Añadir familiar</string>
+    <string name="mis_recados">Mis recados</string>
+
 
 </resources>

@@ -69,6 +69,11 @@
             android:name=".MenuInicio"
             android:label="@string/title_activity_menu_inicio" >
         </activity>
+        <activity
+            android:name=".DetalleRecado"
+            android:label="@string/title_activity_detalle_recado"
+            android:theme="@android:style/Theme.Dialog" >
+        </activity>
     </application>
 
 </manifest>

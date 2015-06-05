@@ -2,7 +2,9 @@ package com.proyecto.fcircle;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,7 +38,7 @@ import java.util.ArrayList;
 
 public class AgregarFamiliar extends Activity {
 
-    private String usuarioLogueado = "jorge";
+    private String usuarioLogueado;
     private String usuarioAgregado;
     private EditText etUsuario;
 
@@ -49,6 +51,7 @@ public class AgregarFamiliar extends Activity {
 
     public void initComponents(){
         etUsuario = (EditText) this.findViewById(R.id.etUsuario);
+        usuarioLogueado = getUsuarioSharedPreferences();
     }
 
     @Override
@@ -75,9 +78,15 @@ public class AgregarFamiliar extends Activity {
 
     public void agregar(View v){
         usuarioAgregado = etUsuario.getText().toString();
-        Actualizar actualiza = new Actualizar();
+        ActualizarFamilia actualiza = new ActualizarFamilia();
         actualiza.execute();
     }
+
+    public String getUsuarioSharedPreferences() {
+        SharedPreferences sp = getSharedPreferences("usuario", Context.MODE_PRIVATE);
+        return sp.getString("usuario", "");
+    }
+
     public void cancelar(View v){
         this.finish();
     }
@@ -88,12 +97,11 @@ public class AgregarFamiliar extends Activity {
 
     /********************    CONEXION CON EL SERVIDOR ******************************/
 
-    class Subir extends AsyncTask<String,Integer,String> {
-
+    class SubirFamiliar extends AsyncTask<String,Integer,String> {
 
         Amigo amigo = new Amigo();
 
-        public Subir(Amigo ami){
+        public SubirFamiliar(Amigo ami){
             amigo = ami;
         }
 
@@ -106,13 +114,6 @@ public class AgregarFamiliar extends Activity {
                     "&action=op";
             r = post(url);
             return r;
-        }
-
-        @Override
-        protected void onPostExecute(String strings) {
-            super.onPostExecute(strings);
-            tostada(strings);
-
         }
 
         public String post(String urlPeticion) {
@@ -155,7 +156,7 @@ public class AgregarFamiliar extends Activity {
         }
     }
 
-    class Actualizar extends AsyncTask<String,Integer,ArrayList<String>> {
+    class ActualizarFamilia extends AsyncTask<String,Integer,ArrayList<String>> {
 
         ProgressDialog pDialog;
 
@@ -224,7 +225,7 @@ public class AgregarFamiliar extends Activity {
         public void agregarAmigo(){
             //los hacemos amigos
             Amigo amigo = new Amigo(usuarioLogueado, usuarioAgregado);
-            Subir subir = new Subir(amigo);
+            SubirFamiliar subir = new SubirFamiliar(amigo);
             subir.execute();
             tostada("Amigo agregado");
         }

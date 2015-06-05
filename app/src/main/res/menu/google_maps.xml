@@ -1,8 +1,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.proyecto.fcircle.GoogleMaps" >
-    <item android:id="@+id/action_settings"
-        android:title="@string/action_settings"
+
+    <item android:id="@+id/accion_cerrar_sesion"
+        android:title="@string/accion_cerrar_sesion"
+        android:orderInCategory="100" />
+
+    <item android:id="@+id/anadir_amigo"
+        android:title="@string/anadir_familiar"
         android:orderInCategory="100"
-        android:showAsAction="never" />
+        android:showAsAction="always"
+        android:icon="@drawable/ic_launcher" />
+
+    <item android:id="@+id/mis_recados"
+        android:title="@string/mis_recados"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:icon="@drawable/ic_launcher" />
 </menu>

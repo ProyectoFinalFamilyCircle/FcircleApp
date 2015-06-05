@@ -2,7 +2,6 @@ package com.proyecto.fcircle;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,9 +10,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.db4o.Db4oEmbedded;
-import com.db4o.ObjectContainer;
-import com.proyecto.fcircle.clases.Amigo;
 import com.proyecto.fcircle.clases.Usuario;
 
 import org.apache.http.entity.mime.HttpMultipartMode;
@@ -32,16 +28,10 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-
 
 public class RegistroUsuario extends Activity {
 
-    ObjectContainer bd;
-    private ArrayList<Usuario> alUsuario = new ArrayList<Usuario>();
     private EditText etNombre, etApellidos, etUsuario, etClave, etClaveRepetida;
-
     private Usuario usuarioRegistrado;
 
 
@@ -49,17 +39,11 @@ public class RegistroUsuario extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.actividad_registro_usuario);
-        //Abrimos la base de datos db4o
-        bd = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), getExternalFilesDir(null) + "/bd.db4o");
-        //Leemos los datos del servidor
+        initComponents();
+    }
 
-        Actualizar actualiza = new Actualizar();
-        actualiza.execute();
-        //Obtenemos los usuarios
-
-        Bundle b = getIntent().getExtras();
-        alUsuario = b.getParcelableArrayList("usuarios");
-
+    public void initComponents(){
+        usuarioRegistrado = new Usuario();
         etNombre = (EditText) this.findViewById(R.id.etNombre);
         etApellidos = (EditText) this.findViewById(R.id.etApellidos);
         etUsuario = (EditText) this.findViewById(R.id.etUsuario);
@@ -67,63 +51,34 @@ public class RegistroUsuario extends Activity {
         etClaveRepetida = (EditText) this.findViewById(R.id.etClaveRepetida);
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        bd.close();
-    }
-
     public void registrarUsuario(View v){
-        final Usuario usuario = new Usuario();
-        try {
-            String nombre = etNombre.getText().toString();
-            String apellidos = etApellidos.getText().toString();
-            String nomUsuario = etUsuario.getText().toString();
-            String clave = etClave.getText().toString();
-            String claveRepetida = etClaveRepetida.getText().toString();
-            if (!nombre.equals("") && !apellidos.equals("") && !nomUsuario.equals("") && !clave.equals("")
-                    && !claveRepetida.equals("")) {
-
-                usuario.setNombre(nombre);
-                usuario.setApellidos(apellidos);
-                Boolean todoCorrecto = true;
-                for (int i = 0; i < alUsuario.size(); i++) {
-                    if (nomUsuario.equals(alUsuario.get(i).getUsuario())) {
-                        tostada("Ya existe el usuario " + nomUsuario);
-                        todoCorrecto = false;
-                    }
-                }
-                if (clave.equals(claveRepetida)) {
-                    usuario.setClave(clave);
-                } else {
-                    tostada("Las claves deben coincidir");
-                    todoCorrecto = false;
-                }
-                if (todoCorrecto) {//Si el registro es correcto
-                    usuario.setUsuario(nomUsuario);
-
-                    // para no tener que descargar todos los usuarios
-                    //usuarioRegistrado=usuario;
-
-                    bd.store(usuario);
-                    bd.commit();
-                    alUsuario.add(usuario);
-                    tostada("Registrado correctamente");
-                    //llamamos a la hebra
-                    Subir subir = new Subir(usuario);
-                    subir.execute();
-                    //Como el registro es correcto, mostramos la actividad login
-                    Intent i = new Intent(this, LoginUsuario.class);
-                    Bundle b = new Bundle();
-                    b.putParcelableArrayList("usuarios", alUsuario);
-                    i.putExtras(b);
-                    startActivity(i);
-                }
-            }else{
-                tostada("Faltan campos por rellenar");
+        Boolean todoCorrecto = true;
+        String nombre = etNombre.getText().toString();
+        String apellidos = etApellidos.getText().toString();
+        String nomUsuario = etUsuario.getText().toString();
+        String clave = etClave.getText().toString();
+        String claveRepetida = etClaveRepetida.getText().toString();
+        //comprobamos que los campos no esten vacios
+        if (!nombre.equals("") && !apellidos.equals("") &&
+                !nomUsuario.equals("") && !clave.equals("")
+                && !claveRepetida.equals("")) {
+            //comprobamos que la clave y repetir clave sean iguales
+            if (!clave.equals(claveRepetida)) {
+                tostada("Las claves deben coincidir");
+                todoCorrecto = false;
             }
-        }catch (Exception e){
-            tostada("No se ha podido registrar");
+            if (todoCorrecto) {//Si el registro es correcto
+                usuarioRegistrado.setNombre(nombre);
+                usuarioRegistrado.setApellidos(apellidos);
+                usuarioRegistrado.setClave(clave);
+                usuarioRegistrado.setUsuario(nomUsuario);
+
+                //procedemos a comprobar con la base de datos
+                ActualizaUsuario actualizaUsuario = new ActualizaUsuario();
+                actualizaUsuario.execute();
+            }
+        }else{
+            tostada("Faltan campos por rellenar");
         }
     }
 
@@ -137,31 +92,28 @@ public class RegistroUsuario extends Activity {
 
     /************************* CONEXION CON EL SERVIDOR ****************************************/
 
-    class Subir extends AsyncTask<String,Integer,String> {
+    class SubirUsuario extends AsyncTask<String,Integer,String> {
 
-        ProgressDialog pDialog;
         Usuario usuario = new Usuario();
 
-        public Subir(Usuario usu){
+        public SubirUsuario(Usuario usu){
             usuario = usu;
         }
 
         @Override
         protected String doInBackground(String... params) {
-            String url = null;
-            String r = null;
-            url = Principal.URL + "target=persona" +
+            String url = Principal.URL + "target=persona" +
                     "&op=insert" +
                     "&action=op";
-            r = post(url);
+            String r = post(url);
             return r;
         }
 
         @Override
         protected void onPostExecute(String strings) {
             super.onPostExecute(strings);
-            tostada(strings);
-            pDialog.dismiss();
+            //Log.v("SubirUsuario", strings);
+            tostada("Registrado correctamente");
         }
 
         public String post(String urlPeticion) {
@@ -209,7 +161,20 @@ public class RegistroUsuario extends Activity {
     }
 
 
-    class Actualizar extends AsyncTask<String,Integer,String> {
+    class ActualizaUsuario extends AsyncTask<String,Integer,String> {
+
+        ProgressDialog pDialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            pDialog = new ProgressDialog(RegistroUsuario.this);
+            pDialog.setMessage("Registrando");
+            pDialog.setCancelable(false);
+            pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            pDialog.show();
+        }
 
         @Override
         protected String doInBackground(String... params) {
@@ -221,29 +186,38 @@ public class RegistroUsuario extends Activity {
         @Override
         protected void onPostExecute(String strings) {
             super.onPostExecute(strings);
-            tostada(strings);
-            Log.v("AQUI", strings);
-            leerJSON(strings);
+            //Log.v("ActualizaUsuario", strings);
+            //Comprobamos que el usuario no existe
+            compruebaUsuario(strings);
+            pDialog.dismiss();
+            RegistroUsuario.this.finish();
+            //Como el registro es correcto, mostramos la actividad login
+            Intent i = new Intent(RegistroUsuario.this, LoginUsuario.class);
+            startActivity(i);
         }
 
-        public void leerJSON(String s){
+        public void compruebaUsuario(String s){
             JSONTokener token = new JSONTokener(s);
+            boolean registrar = true;
             try {
                 JSONArray array = new JSONArray(token);
                 for(int i=0;i<array.length(); i++){
                     JSONObject fila = array.getJSONObject(i);
-                    //hay que recorrer la base de datos para que no se repitan los objetos
                     /*****************/
                     Usuario usuario = new Usuario(fila.getString("nombre"),
                                                     fila.getString("apellidos"),
                                                     fila.getString("nombreUsuario"),
                                                     fila.getString("clave"));
-                    List<Usuario> usuarios = bd.queryByExample(new Usuario(null, null, fila.getString("nombreUsuario"), null));
-                    if(usuarios.size() == 0) {
-                        //guardamos cuando no lo tenemos en nuestra lista
-                        bd.store(usuario);
-                        bd.commit();
+                    if(usuario.compruebaUsuario(usuarioRegistrado)){
+                        tostada(usuarioRegistrado.getUsuario() + " ya está registrado");
+                        registrar = false;
+                        break;
                     }
+                }
+                if(registrar){
+                    //este usuario no existe en la base de datos, llamamos a la hebra SubirUsuario
+                    SubirUsuario subirUsuario = new SubirUsuario(usuarioRegistrado);
+                    subirUsuario.execute();
                 }
             } catch (JSONException e) {
                 Log.v("ser","noseer");
@@ -271,6 +245,5 @@ public class RegistroUsuario extends Activity {
             return "no se ha podido leer";
         }
     }
-
     /*******************************************************************************************/
 }

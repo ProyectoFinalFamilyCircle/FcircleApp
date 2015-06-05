@@ -1,27 +1,34 @@
 package com.proyecto.fcircle.clases;
 
-
-import android.location.Location;
-
 public class Localizacion {
-    private Location localizacion;
+    private int id;
+    private double longitud;
+    private double latitud;
     private String usuario;
 
-    public Localizacion(){
+    public Localizacion() {
 
     }
 
-    public Localizacion(Location localizacion, String usuario) {
-        this.localizacion = localizacion;
+    public Localizacion(double longitud, double latitud, String usuario) {
+        this.longitud = longitud;
+        this.latitud = latitud;
         this.usuario = usuario;
     }
 
-    public Location getLocalizacion() {
-        return localizacion;
+    public Localizacion(int id, double longitud, double latitud, String usuario) {
+        this.id = id;
+        this.longitud = longitud;
+        this.latitud = latitud;
+        this.usuario = usuario;
     }
 
-    public void setLocalizacion(Location localizacion) {
-        this.localizacion = localizacion;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUsuario() {
@@ -32,5 +39,19 @@ public class Localizacion {
         this.usuario = usuario;
     }
 
+    public double getLatitud() {
+        return latitud;
+    }
 
+    public void setLatitud(double latitud) {
+        this.latitud = latitud;
+    }
+
+    public double getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(double longitud) {
+        this.longitud = longitud;
+    }
 }

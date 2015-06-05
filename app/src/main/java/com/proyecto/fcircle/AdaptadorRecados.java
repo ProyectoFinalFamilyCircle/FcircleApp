@@ -31,19 +31,10 @@ public class AdaptadorRecados extends ArrayAdapter<Recado> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        //Log.v("LOG", "" + lRecado.size());
-        viewHolder vh = null;
-        if (convertView == null){
-            convertView = i.inflate(recurso, null);
-            vh = new viewHolder();
-            vh.tvTitulo = (TextView) convertView.findViewById(R.id.tvTitulo);
-            vh.tvUsuario = (TextView) convertView.findViewById(R.id.tvUsuario);
-            convertView.setTag(vh);
-        }else {
-            vh = (viewHolder) convertView.getTag();
-        }
-        vh.posicion = position;
-
+        viewHolder vh = new viewHolder();
+        convertView = i.inflate(recurso,null);
+        vh.tvTitulo = (TextView) convertView.findViewById(R.id.tvTitulo);
+        vh.tvUsuario = (TextView) convertView.findViewById(R.id.tvUsuario);
         vh.tvTitulo.setText(lRecado.get(position).getTitulo());
         vh.tvUsuario.setText(lRecado.get(position).getUsuarioCreador());
         return convertView;

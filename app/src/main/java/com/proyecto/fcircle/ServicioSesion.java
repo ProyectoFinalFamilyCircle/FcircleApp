@@ -45,7 +45,7 @@ public class ServicioSesion extends Service {
         Notification note = new Notification(R.drawable.ic_launcher,
                 "Family Circle",
                 System.currentTimeMillis());
-        Intent i=new Intent(this, CrearRecado.class);
+        Intent i=new Intent(this, MenuInicio.class);
 
         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|
                 Intent.FLAG_ACTIVITY_SINGLE_TOP);
