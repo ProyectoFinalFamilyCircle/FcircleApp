@@ -5,4 +5,19 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="MiTema" parent="@android:Theme.Holo.Light.DarkActionBar">
+        <item name="android:actionBarStyle">@style/MiActionBar</item>
+    </style>
+
+    <!-- ActionBar styles -->
+    <style name="MiActionBar" parent="@android:Widget.Holo.Light.ActionBar.Solid.Inverse">
+        <item name="android:background">#ff8044ad</item>
+    </style>
+
+    <style name="PantallaCompleta" parent="android:Theme.Holo.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:background">#ff8044ad</item>
+        <item name="android:editTextColor">#FFFFFF</item>
+    </style>
+
 </resources>

@@ -74,7 +74,7 @@ public class GoogleMaps extends Activity implements OnMapReadyCallback, GoogleAp
                     .build();
             cliente.connect();
         }else{
-
+            tostada("Error de conexión");
         }
     }
 
@@ -123,7 +123,7 @@ public class GoogleMaps extends Activity implements OnMapReadyCallback, GoogleAp
     @Override
     public void onConnected(Bundle bundle) {
         peticionLocalizaciones = new LocationRequest();
-        peticionLocalizaciones.setInterval(100000);
+        peticionLocalizaciones.setInterval(1000000);
         //peticionLocalizaciones.setFastestInterval(500);
         peticionLocalizaciones.setPriority(
                 LocationRequest.PRIORITY_HIGH_ACCURACY);//La precision del localizador
@@ -147,7 +147,7 @@ public class GoogleMaps extends Activity implements OnMapReadyCallback, GoogleAp
         location.getLatitude();
         location.getLongitude();
         location.bearingTo(location);
-            Toast.makeText(this, location.getLatitude() + ", " + location.getLongitude() + "", Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, location.getLatitude() + ", " + location.getLongitude() + "", Toast.LENGTH_LONG).show();
         Localizacion nuevaLocalizacion = new Localizacion(location.getLongitude(), location.getLatitude(), usuarioLogueado);
         SubirLocalizacion modifica = new SubirLocalizacion(nuevaLocalizacion);
         modifica.execute();

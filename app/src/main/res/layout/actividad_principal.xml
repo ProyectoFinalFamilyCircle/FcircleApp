@@ -26,7 +26,10 @@
             android:text="@string/btnLogin"
             android:id="@+id/btnLogin"
             android:layout_gravity="center_horizontal"
-            android:onClick="login" />
+            android:onClick="login"
+            android:background="@drawable/fondo_boton_blanco"
+            android:textColor="#ff8044ad"
+            android:layout_marginTop="30dp" />
 
         <Button
             android:layout_width="200dp"
@@ -34,6 +37,9 @@
             android:text="@string/btnRegistrar"
             android:id="@+id/btnRegistro"
             android:layout_gravity="center_horizontal"
-            android:onClick="registro" />
+            android:onClick="registro"
+            android:background="@drawable/fondo_boton_blanco"
+            android:textColor="#ff8044ad"
+            android:layout_marginTop="30dp" />
     </LinearLayout>
 </RelativeLayout>

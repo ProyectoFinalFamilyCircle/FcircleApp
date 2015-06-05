@@ -56,7 +56,7 @@ public class AgregarFamiliar extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.agregar_familiar, menu);
+        getMenuInflater().inflate(R.menu.crear_recado, menu);
         return true;
     }
 

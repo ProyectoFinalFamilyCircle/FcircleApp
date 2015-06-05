@@ -17,13 +17,15 @@
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:paddingTop="10dp"
-            android:paddingBottom="10dp">
+            android:paddingBottom="10dp"
+            android:layout_marginTop="20dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="New Text"
-                android:id="@+id/tvTitulo" />
+                android:id="@+id/tvTitulo"
+                android:textSize="25sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -33,7 +35,8 @@
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:paddingTop="10dp"
-            android:paddingBottom="10dp">
+            android:paddingBottom="10dp"
+            android:layout_marginTop="20dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -41,13 +44,15 @@
                 android:text="@string/etUsuario_detalle"
                 android:id="@+id/textView"
                 android:paddingRight="10dp"
-                android:paddingLeft="0dp" />
+                android:paddingLeft="0dp"
+                android:textSize="15sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="New Text"
-                android:id="@+id/tvUsuario" />
+                android:id="@+id/tvUsuario"
+                android:textSize="20sp" />
         </LinearLayout>
 
     </LinearLayout>

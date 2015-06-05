@@ -38,19 +38,4 @@ public class DetalleRecado extends Activity {
         tvUsuarioCreador.setText(alRecado.get(posicion).getUsuarioCreador());
         tvDescripcion.setText(alRecado.get(posicion).getDescripcion());
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.detalle_recado, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }

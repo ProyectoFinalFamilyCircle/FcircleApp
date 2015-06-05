@@ -1,7 +1,0 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.proyecto.fcircle.MenuInicio" >
-    <item android:id="@+id/accion_cerrar_sesion"
-        android:title="@string/accion_cerrar_sesion"
-        android:orderInCategory="100" />
-</menu>

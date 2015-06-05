@@ -16,7 +16,6 @@ import android.widget.ListView;
 
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
-import com.proyecto.fcircle.clases.Amigo;
 import com.proyecto.fcircle.clases.Recado;
 
 import org.json.JSONArray;
@@ -96,6 +95,9 @@ public class MisRecados extends Activity {
             i.putExtra("EXIT", true);
             startActivity(i);
             return true;
+        }else if (id == R.id.anadir_recado) {
+            Intent i = new Intent(this, CrearRecado.class);
+            startActivity(i);
         }
         return super.onOptionsItemSelected(item);
     }

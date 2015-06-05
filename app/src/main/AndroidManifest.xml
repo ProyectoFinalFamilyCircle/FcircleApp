@@ -27,7 +27,8 @@
 
         <activity
             android:name=".Principal"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:theme="@style/PantallaCompleta" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -36,27 +37,33 @@
         </activity>
         <activity
             android:name=".AgregarFamiliar"
-            android:label="@string/title_activity_agregar_familiar" >
+            android:label="@string/title_activity_agregar_familiar"
+            android:theme="@style/MiTema" >
         </activity>
         <activity
             android:name=".CrearRecado"
-            android:label="@string/title_activity_crear_recado" >
+            android:label="@string/title_activity_crear_recado"
+            android:theme="@style/MiTema" >
         </activity>
         <activity
             android:name=".GoogleMaps"
-            android:label="@string/title_activity_google_maps" >
+            android:label="@string/title_activity_google_maps"
+            android:theme="@style/MiTema" >
         </activity>
         <activity
             android:name=".LoginUsuario"
-            android:label="@string/title_activity_login_usuario" >
+            android:label="@string/title_activity_login_usuario"
+            android:theme="@style/PantallaCompleta" >
         </activity>
         <activity
             android:name=".MisRecados"
-            android:label="@string/title_activity_mis_recados" >
+            android:label="@string/title_activity_mis_recados"
+            android:theme="@style/MiTema" >
         </activity>
         <activity
             android:name=".RegistroUsuario"
-            android:label="@string/title_activity_registro_usuario" >
+            android:label="@string/title_activity_registro_usuario"
+            android:theme="@style/PantallaCompleta" >
         </activity>
 
         <service
@@ -64,11 +71,6 @@
             android:enabled="true"
             android:exported="true" >
         </service>
-
-        <activity
-            android:name=".MenuInicio"
-            android:label="@string/title_activity_menu_inicio" >
-        </activity>
         <activity
             android:name=".DetalleRecado"
             android:label="@string/title_activity_detalle_recado"
