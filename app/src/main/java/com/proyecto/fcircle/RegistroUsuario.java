@@ -83,6 +83,8 @@ public class RegistroUsuario extends Activity {
     }
 
     public void cancelarRegistro(View v){
+        Intent i = new Intent(this, Principal.class);
+        startActivity(i);
         this.finish();
     }
 

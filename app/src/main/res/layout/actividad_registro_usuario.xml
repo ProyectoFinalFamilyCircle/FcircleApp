@@ -10,9 +10,10 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_vertical"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:gravity="center_vertical">
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
 
         <EditText
             android:layout_width="match_parent"
@@ -20,7 +21,9 @@
             android:id="@+id/etNombre"
             android:layout_gravity="center_horizontal"
             android:hint="@string/etNombre"
-            android:layout_marginTop="15dp" />
+            android:layout_marginTop="15dp"
+            android:textColorHint="#FFFFFF"
+            android:singleLine="true" />
 
         <EditText
             android:layout_width="match_parent"
@@ -28,7 +31,9 @@
             android:id="@+id/etApellidos"
             android:layout_gravity="center_horizontal"
             android:hint="@string/etApellidos"
-            android:layout_marginTop="15dp" />
+            android:layout_marginTop="15dp"
+            android:textColorHint="#FFFFFF"
+            android:singleLine="true" />
 
         <EditText
             android:layout_width="match_parent"
@@ -36,7 +41,9 @@
             android:id="@+id/etUsuario"
             android:layout_gravity="center_horizontal"
             android:hint="@string/etUsuario"
-            android:layout_marginTop="15dp" />
+            android:layout_marginTop="15dp"
+            android:textColorHint="#FFFFFF"
+            android:singleLine="true" />
 
         <EditText
             android:layout_width="match_parent"
@@ -46,7 +53,9 @@
             android:id="@+id/etClave"
             android:layout_gravity="center_horizontal"
             android:hint="@string/etClave"
-            android:layout_marginTop="15dp" />
+            android:layout_marginTop="15dp"
+            android:textColorHint="#FFFFFF"
+            android:singleLine="true" />
 
         <EditText
             android:layout_width="match_parent"
@@ -56,7 +65,9 @@
             android:id="@+id/etClaveRepetida"
             android:layout_gravity="center_horizontal"
             android:hint="@string/etClaveRepetida"
-            android:layout_marginTop="15dp" />
+            android:layout_marginTop="15dp"
+            android:textColorHint="#FFFFFF"
+            android:singleLine="true" />
 
         <LinearLayout
             android:orientation="horizontal"

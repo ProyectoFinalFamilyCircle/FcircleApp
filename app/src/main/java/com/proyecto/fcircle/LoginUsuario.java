@@ -58,6 +58,8 @@ public class LoginUsuario extends Activity {
     }
 
     public void cancelarLogin(View v){
+        Intent i = new Intent(this, Principal.class);
+        startActivity(i);
         this.finish();
     }
 
