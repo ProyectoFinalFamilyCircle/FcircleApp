@@ -14,12 +14,20 @@
         android:layout_centerHorizontal="true"
         android:gravity="center_vertical">
 
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="250dp"
+            android:id="@+id/imageView"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/nombre_app" />
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/etUsuario"
             android:layout_gravity="center_horizontal"
-            android:hint="@string/etUsuario" />
+            android:hint="@string/etUsuario"
+            android:layout_marginTop="15dp" />
 
         <EditText
             android:layout_width="match_parent"
@@ -60,4 +68,5 @@
         </LinearLayout>
 
     </LinearLayout>
+
 </RelativeLayout>

@@ -2,8 +2,6 @@ package com.proyecto.fcircle;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.proyecto.fcircle.clases.Recado;

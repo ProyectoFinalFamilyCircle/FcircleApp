@@ -10,5 +10,5 @@
         android:title="@string/anadir_recado"
         android:orderInCategory="100"
         android:showAsAction="always"
-        android:icon="@drawable/ic_launcher" />
+        android:icon="@drawable/ico_agregar_recado" />
 </menu>

@@ -30,9 +30,8 @@
     <string name="btnAgregarAmigo">Agregar Amigo</string>
     <string name="tvDescripcion">Descripción</string>
     <string name="title_activity_google_maps">Localizaciones Amigos</string>
-    <string name="title_activity_menu_inicio">MenuInicio</string>
     <string name="hello_world">Hello world!</string>
-    <string name="title_activity_detalle_recado">DetalleRecado</string>
+    <string name="title_activity_detalle_recado">Detalle Recado</string>
     <string name="anadir_familiar">Añadir familiar</string>
     <string name="mis_recados">Mis recados</string>
     <string name="anadir_recado">Añadir Recado</string>

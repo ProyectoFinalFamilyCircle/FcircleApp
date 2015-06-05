@@ -19,7 +19,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/etNombre"
             android:layout_gravity="center_horizontal"
-            android:hint="@string/etNombre" />
+            android:hint="@string/etNombre"
+            android:layout_marginTop="15dp" />
 
         <EditText
             android:layout_width="match_parent"
@@ -84,5 +85,6 @@
                 android:textColor="#ff8044ad"
                 android:background="@drawable/fondo_boton_blanco" />
         </LinearLayout>
+
     </LinearLayout>
 </RelativeLayout>

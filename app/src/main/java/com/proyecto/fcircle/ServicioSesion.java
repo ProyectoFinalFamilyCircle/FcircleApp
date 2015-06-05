@@ -42,7 +42,7 @@ public class ServicioSesion extends Service {
     }
 
     private void notificacion(){
-        Notification note = new Notification(R.drawable.ic_launcher,
+        Notification note = new Notification(R.drawable.icono,
                 "Family Circle",
                 System.currentTimeMillis());
         Intent i=new Intent(this, GoogleMaps.class);

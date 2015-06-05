@@ -10,11 +10,11 @@
         android:title="@string/anadir_familiar"
         android:orderInCategory="100"
         android:showAsAction="always"
-        android:icon="@drawable/ic_launcher" />
+        android:icon="@drawable/ico_agregar_amigo" />
 
     <item android:id="@+id/mis_recados"
         android:title="@string/mis_recados"
         android:orderInCategory="100"
         android:showAsAction="always"
-        android:icon="@drawable/ic_launcher" />
+        android:icon="@drawable/ico_mis_recados" />
 </menu>
