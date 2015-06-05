@@ -76,33 +76,11 @@ public class CrearRecado extends Activity {
         leerBD();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.crear_recado, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.accion_cerrar_sesion) {
-            Intent intent = new Intent(this, ServicioSesion.class);
-            intent.setAction(ServicioSesion.CERRAR);
-            startService(intent);
-            Intent i = new Intent(getApplicationContext(), Principal.class);
-            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            i.putExtra("EXIT", true);
-            startActivity(i);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     public void guardarRecado(View v){
         String titulo = etTitulo.getText().toString();
         String desc = etDescripcion.getText().toString();
         String usuarioReceptor = String.valueOf(spUsuarios.getSelectedItem());
-        if(!titulo.equals("") || !desc.equals("") || !usuarioReceptor.equals("")){
+        if(!titulo.equals("") && !usuarioReceptor.equals("")){
             Recado recado = new Recado();
             recado.setTitulo(titulo);
             recado.setDescripcion(desc);
@@ -174,7 +152,8 @@ public class CrearRecado extends Activity {
         @Override
         protected void onPostExecute(String strings) {
             super.onPostExecute(strings);
-            tostada(strings);
+            tostada("Recado enviado");
+            CrearRecado.this.finish();
             pDialog.dismiss();
         }
 

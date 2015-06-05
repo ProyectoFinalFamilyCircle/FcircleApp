@@ -105,9 +105,8 @@ public class GoogleMaps extends Activity implements OnMapReadyCallback, GoogleAp
             Intent intent = new Intent(this, ServicioSesion.class);
             intent.setAction(ServicioSesion.CERRAR);
             startService(intent);
+            GoogleMaps.this.finish();
             Intent i = new Intent(getApplicationContext(), Principal.class);
-            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            i.putExtra("EXIT", true);
             startActivity(i);
             return true;
         }else if (id == R.id.anadir_amigo) {

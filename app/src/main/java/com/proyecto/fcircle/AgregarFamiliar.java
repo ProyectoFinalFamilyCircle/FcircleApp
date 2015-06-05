@@ -14,6 +14,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.db4o.Db4oEmbedded;
+import com.db4o.ObjectContainer;
 import com.proyecto.fcircle.clases.Amigo;
 import com.proyecto.fcircle.clases.Usuario;
 
@@ -41,6 +43,7 @@ public class AgregarFamiliar extends Activity {
     private String usuarioLogueado;
     private String usuarioAgregado;
     private EditText etUsuario;
+    private ObjectContainer bd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,28 +55,20 @@ public class AgregarFamiliar extends Activity {
     public void initComponents(){
         etUsuario = (EditText) this.findViewById(R.id.etUsuario);
         usuarioLogueado = getUsuarioSharedPreferences();
+        //Abrimos la base de datos db4o
+        bd = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), getExternalFilesDir(null) + "/bd.db4o");
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.crear_recado, menu);
-        return true;
+    protected void onRestart() {
+        initComponents();
+        super.onRestart();
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.accion_cerrar_sesion) {
-            Intent intent = new Intent(this, ServicioSesion.class);
-            intent.setAction(ServicioSesion.CERRAR);
-            startService(intent);
-            Intent i = new Intent(getApplicationContext(), Principal.class);
-            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            i.putExtra("EXIT", true);
-            startActivity(i);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+    protected void onPause() {
+        bd.close();
+        super.onPause();
     }
 
     public void agregar(View v){
@@ -165,7 +160,7 @@ public class AgregarFamiliar extends Activity {
             super.onPreExecute();
 
             pDialog = new ProgressDialog(AgregarFamiliar.this);
-            pDialog.setMessage("Sincronizando datos");
+            pDialog.setMessage("Buscando Amigo");
             pDialog.setCancelable(false);
             pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             pDialog.show();
@@ -227,6 +222,9 @@ public class AgregarFamiliar extends Activity {
             Amigo amigo = new Amigo(usuarioLogueado, usuarioAgregado);
             SubirFamiliar subir = new SubirFamiliar(amigo);
             subir.execute();
+            bd.store(amigo);
+            bd.commit();
+            AgregarFamiliar.this.finish();
             tostada("Amigo agregado");
         }
 

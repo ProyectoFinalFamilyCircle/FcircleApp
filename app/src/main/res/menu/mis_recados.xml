@@ -2,10 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.proyecto.fcircle.MisRecados" >
 
-    <item android:id="@+id/accion_cerrar_sesion"
-        android:title="@string/accion_cerrar_sesion"
-        android:orderInCategory="100" />
-
     <item android:id="@+id/anadir_recado"
         android:title="@string/anadir_recado"
         android:orderInCategory="100"

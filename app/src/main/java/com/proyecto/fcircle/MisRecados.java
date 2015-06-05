@@ -52,13 +52,7 @@ public class MisRecados extends Activity {
         //Lanzamos la hebra para actualizar los recados.
         ActualizarRecados aRecados = new ActualizarRecados();
         aRecados.execute();
-        //Una vez actualizados leemos la bd db4o.
-        leerBD();
-        //Añadimos los recados a la lista.
-        adaptadorR = new AdaptadorRecados(this, R.layout.detalle_lista_recado, alRecado);
-        lvMisRecados.setAdapter(adaptadorR);
-        registerForContextMenu(lvMisRecados);
-        adaptadorR.notifyDataSetChanged();
+
 
         lvMisRecados.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -69,6 +63,14 @@ public class MisRecados extends Activity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    protected void onRestart() {
+        //Abrimos la base de datos db4o.
+        bd = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), getExternalFilesDir(null) + "/bd.db4o");
+        leerBD();
+        super.onRestart();
     }
 
     @Override
@@ -86,16 +88,7 @@ public class MisRecados extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.accion_cerrar_sesion) {
-            Intent intent = new Intent(this, ServicioSesion.class);
-            intent.setAction(ServicioSesion.CERRAR);
-            startService(intent);
-            Intent i = new Intent(getApplicationContext(), Principal.class);
-            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            i.putExtra("EXIT", true);
-            startActivity(i);
-            return true;
-        }else if (id == R.id.anadir_recado) {
+        if (id == R.id.anadir_recado) {
             Intent i = new Intent(this, CrearRecado.class);
             startActivity(i);
         }
@@ -144,6 +137,13 @@ public class MisRecados extends Activity {
             super.onPostExecute(strings);
             Log.v("AQUI", strings);
             cargarMisRecados(strings);
+            //Una vez actualizados leemos la bd db4o.
+            leerBD();
+            //Añadimos los recados a la lista.
+            adaptadorR = new AdaptadorRecados(MisRecados.this, R.layout.detalle_lista_recado, alRecado);
+            lvMisRecados.setAdapter(adaptadorR);
+            registerForContextMenu(lvMisRecados);
+            adaptadorR.notifyDataSetChanged();
             pDialog.dismiss();
         }
 
@@ -161,7 +161,11 @@ public class MisRecados extends Activity {
                     if(recado.getUsuarioReceptor().equals(usuarioLogueado)){
                         //añadir en db4o
                         //comprobar que no esta en db4o
-                        List<Recado> recados = bd.queryByExample(new Recado(null, null, null, usuarioLogueado));
+                        List<Recado> recados = bd.queryByExample(
+                                new Recado(recado.getTitulo(),
+                                        recado.getDescripcion(),
+                                        recado.getUsuarioCreador(),
+                                        usuarioLogueado));
                         if(recados.size() == 0) {
                             //guardamos cuando no lo tenemos en nuestra lista
                             bd.store(recado);

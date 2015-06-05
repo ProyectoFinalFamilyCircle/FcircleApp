@@ -46,11 +46,15 @@ public class LoginUsuario extends Activity {
     public void loginUsuario(View v){
         String usuario = etUsuario.getText().toString();
         String clave = etClave.getText().toString();
-        usuarioLogueado.setUsuario(usuario);
-        usuarioLogueado.setClave(clave);
+        if(!usuario.equals("") && !clave.equals("")){
+            usuarioLogueado.setUsuario(usuario);
+            usuarioLogueado.setClave(clave);
 
-        ActualizaUsuario actualizaUsuario = new ActualizaUsuario();
-        actualizaUsuario.execute();
+            ActualizaUsuario actualizaUsuario = new ActualizaUsuario();
+            actualizaUsuario.execute();
+        }else{
+            tostada("Faltan campos por rellenar");
+        }
     }
 
     public void cancelarLogin(View v){
