@@ -7,7 +7,7 @@ import android.view.View;
 
 public class Principal extends Activity {
 
-    public static String URL = "http://192.168.1.105:8080/FcircleServidor/ControlAndroid?";
+    public static String URL = "http://192.168.1.14:8080/FcircleServidor/ControlAndroid?";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

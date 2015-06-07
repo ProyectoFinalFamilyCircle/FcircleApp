@@ -78,6 +78,12 @@ public class GoogleMaps extends Activity implements OnMapReadyCallback, GoogleAp
         }
     }
 
+    @Override
+    protected void onRestart() {
+        initComponents();
+        super.onRestart();
+    }
+
     public void initComponents() {
         usuarioLogueado = getUsuarioSharedPreferences();
         //Abrimos la base de datos db4o
